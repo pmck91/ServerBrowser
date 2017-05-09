@@ -11,7 +11,7 @@ Clone the repo and run a maven install.
 
 Usage
 -------------
-run with `java -jar target/ServerBrowser-jar-with-dependencies`
+run with `java -jar target/ServerBrowser-jar-with-dependencies.jar`
 
 commands:
  - add: save a new server
