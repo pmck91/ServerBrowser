@@ -59,6 +59,7 @@ public class ApplicationController {
                 switch (input[0].toLowerCase()) {
                     case "add":
                         serverController.saveServer();
+                        printList(false, page, null, null);
                         break;
                     case "view":
                         if (input.length < 2) {
@@ -66,6 +67,7 @@ public class ApplicationController {
                             break;
                         }
                         serverController.view(Integer.parseInt(input[1]));
+                        printList(false, page, null, null);
                         break;
                     case "delete":
                         if (input.length < 2) {
@@ -73,6 +75,7 @@ public class ApplicationController {
                             break;
                         }
                         serverController.delete(Integer.parseInt(input[1]));
+                        printList(false, page, null, null);
                         break;
                     case "edit":
                         if (input.length < 2) {
@@ -80,12 +83,15 @@ public class ApplicationController {
                             break;
                         }
                         serverController.edit(Integer.parseInt(input[1]));
+                        printList(false, page, null, null);
                         break;
                     case "next":
                         page = serverController.nextPage();
+                        printList(inSearch, page, seachCol, searchLike);
                         break;
                     case "prev":
                         page = serverController.previousPage();
+                        printList(inSearch, page, seachCol, searchLike);
                         break;
                     case "filter":
                         if (input.length < 3) {
@@ -95,6 +101,7 @@ public class ApplicationController {
                         String col = input[1];
                         Order order = input[2].equals("asc") ? Order.ASSENDING : Order.DECENDING;
                         serverController.setFilter(col, order);
+                        printList(inSearch, page, seachCol, searchLike);
                         break;
                     case "search":
                         if (input.length < 3) {
@@ -105,13 +112,16 @@ public class ApplicationController {
                         searchLike = input[2];
                         page = 0;
                         inSearch = true;
+                        printList(inSearch, page, seachCol, searchLike);
                         break;
                     case "list":
                         inSearch = false;
                         page = 0;
+                        printList(inSearch, page, null, null);
                         break;
                     case "count":
                         System.out.println(String.format("There are %s servers", serverController.count()));
+                        printList(inSearch, page, seachCol, searchLike);
                         break;
                     case "parse":
                         if (input.length < 2) {
@@ -121,6 +131,8 @@ public class ApplicationController {
                         String filePath = input[1];
                         Servers servers = XMLController.parse(filePath);
                         serverController.saveServers(servers);
+                        page = 0;
+                        printList(false, page, null, null);
                         break;
                     case "help":
                     case "h":
@@ -130,16 +142,8 @@ public class ApplicationController {
                     case "quit":
                         cont = false;
                         close();
-                        System.exit(0);
                         break;
                 }
-
-                if (inSearch) {
-                    serverController.page(page, seachCol, searchLike);
-                } else {
-                    serverController.page(page, null, null);
-                }
-
 
             } catch (Exception e) {
                 System.err.println(e.getMessage());
@@ -156,6 +160,14 @@ public class ApplicationController {
             this.connectionSource.close();
         } catch (IOException e) {
             System.err.println("Something has gone wrong, couldn't close connection to database: " + e.getMessage());
+        }
+    }
+
+    private void printList(boolean inSearchMode, int page,  String col ,String like){
+        if (inSearchMode) {
+            serverController.page(page, col, like);
+        } else {
+            serverController.page(page, null, null);
         }
     }
 }
