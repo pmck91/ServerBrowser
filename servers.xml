@@ -1,0 +1,14 @@
+<servers>
+    <server>
+        <name>www.stage4.com</name>
+        <description>stage server</description>
+    </server>
+    <server>
+        <name>www.demo1.com</name>
+        <description>demo server</description>
+    </server>
+    <server>
+        <name>www.qa1.com</name>
+        <description>qa server</description>
+    </server>
+</servers>
