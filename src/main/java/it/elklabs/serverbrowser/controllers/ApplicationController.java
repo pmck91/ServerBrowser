@@ -61,12 +61,24 @@ public class ApplicationController {
                         serverController.saveServer();
                         break;
                     case "view":
+                        if(input.length < 2){
+                            System.err.println("Wrong number of args");
+                            break;
+                        }
                         serverController.view(Integer.parseInt(input[1]));
                         break;
                     case "delete":
+                        if(input.length < 2){
+                            System.err.println("Wrong number of args");
+                            break;
+                        }
                         serverController.delete(Integer.parseInt(input[1]));
                         break;
                     case "edit":
+                        if(input.length < 2){
+                            System.err.println("Wrong number of args");
+                            break;
+                        }
                         serverController.edit(Integer.parseInt(input[1]));
                         break;
                     case "next":
@@ -76,11 +88,19 @@ public class ApplicationController {
                         page = serverController.previousPage();
                         break;
                     case "filter":
+                        if(input.length < 3){
+                            System.err.println("Wrong number of args");
+                            break;
+                        }
                         String col = input[1];
                         Order order = input[2].equals("asc") ? Order.ASSENDING : Order.DECENDING;
                         serverController.setFilter(col, order);
                         break;
                     case "search":
+                        if(input.length < 3){
+                            System.err.println("Wrong number of args");
+                            break;
+                        }
                         seachCol = input[1];
                         searchLike = input[2];
                         page = 0;
@@ -94,6 +114,10 @@ public class ApplicationController {
                         System.out.println(String.format("There are %s servers", serverController.count()));
                         break;
                     case "parse":
+                        if(input.length < 2){
+                            System.err.println("Wrong number of args");
+                            break;
+                        }
                         String filePath = input[1];
                         Servers servers = XMLController.parse(filePath);
                         serverController.saveServers(servers);
