@@ -23,7 +23,7 @@ import java.util.ArrayList;
  */
 public class ServerController {
 
-    public final long limit = 10;
+    private final long limit = 10;
 
     private Dao<Server, String> serveDAO;
     private int page;
@@ -32,7 +32,7 @@ public class ServerController {
     private long totalCount;
 
     /**
-     * @param connectionSource
+     * @param connectionSource a connection source object for the desired DB
      */
     public ServerController(ConnectionSource connectionSource) {
         this.page = 0;
@@ -41,10 +41,15 @@ public class ServerController {
         try {
             this.serveDAO = DaoManager.createDao(connectionSource, Server.class);
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            System.err.println(e.getMessage());
         }
     }
 
+    /**
+     * Handles the current page being incremented if more results are available to be paged
+     *
+     * @return the new page number
+     */
     public int nextPage() {
         long count = this.totalCount;
         if ((page + 1) * limit <= count) {
@@ -53,6 +58,23 @@ public class ServerController {
         return this.page;
     }
 
+    /**
+     * Handles the current page being decremented if current page is greater than the first page
+     *
+     * @return the new page number
+     */
+    public int previousPage() {
+        if (this.page - 1 >= 0) {
+            this.page--;
+        }
+        return this.page;
+    }
+
+    /**
+     * gets the total number of servers in the database
+     *
+     * @return the count
+     */
     public long count() {
         try {
             QueryBuilder<Server, String> statementBuilder = serveDAO.queryBuilder();
@@ -60,15 +82,9 @@ public class ServerController {
             PreparedQuery<Server> query = statementBuilder.prepare();
             return serveDAO.countOf(query);
         } catch (SQLException e) {
+            System.err.println(e.getMessage());
             return 0L;
         }
-    }
-
-    public int previousPage() {
-        if (this.page - 1 >= 0) {
-            this.page--;
-        }
-        return this.page;
     }
 
     /**
@@ -85,44 +101,55 @@ public class ServerController {
     /**
      * Adds a server to the database
      */
-    public Server saveServer() {
+    public void saveServer() {
         String[] inputs = new ServerInput().getInput();
         Server server = new Server(inputs[0], inputs[1]);
         try {
             serveDAO.createIfNotExists(server);
-            return server;
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
-            return null;
+            System.err.println(e.getMessage());
         }
     }
 
-    public void saveServer(Servers servers) {
+    /**
+     * Saves all servers in a servers object list
+     *
+     * @param servers a model containing multiple servers
+     */
+    public void saveServers(Servers servers) {
         for (Server server : servers.getServerList()) {
             try {
                 serveDAO.create(server);
             } catch (SQLException e) {
-                e.printStackTrace();
+                System.err.println(e.getMessage());
             }
         }
 
     }
 
+    /**
+     * find a server by id
+     *
+     * @param id the servers DB id
+     * @return the found server or null
+     */
     public Server findServer(int id) {
         try {
             QueryBuilder<Server, String> statementBuilder = serveDAO.queryBuilder();
             PreparedQuery<Server> query = statementBuilder.where().idEq(Integer.toString(id)).prepare();
             return serveDAO.queryForFirst(query);
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            System.err.println(e.getMessage());
             return null;
         }
     }
 
     /**
-     * Gets a paged list of servers, we need the limit and the page number
+     * Gets a paged list of servers (search or list), we need the limit and the page number
      *
-     * @param page the current page of results we wish to get
+     * @param page the requested page
+     * @param col  the col to search on (can be null)
+     * @param like the search term (can be null)
      */
     public void page(int page, String col, String like) {
         long offset = (page * this.limit);
@@ -143,21 +170,26 @@ public class ServerController {
             }
             servers = (ArrayList<Server>) serveDAO.query(query);
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            System.err.println(e.getMessage());
         }
 
-        ServerList.show(servers, page, this.limit, this.totalCount, this);
+        ServerList.show(servers, this.totalCount, this);
     }
 
+    /**
+     * view a single server by id
+     *
+     * @param id the server to views id
+     */
     public void view(int id) {
         Server toView = this.findServer(id);
         ServerShow.show(toView, this);
     }
 
     /**
-     * edits a server (reciever)
+     * edits a server
      *
-     * @param id
+     * @param id the server to edits id
      */
     public void edit(int id) {
         try {
@@ -166,27 +198,39 @@ public class ServerController {
             toEdit.setName(newValues[0]).setDescription(newValues[1]);
             serveDAO.update(toEdit);
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            System.err.println(e.getMessage());
         }
     }
 
     /**
-     * @param id
+     * Deletes a server based on id
+     *
+     * @param id the server to delete
      */
     public void delete(int id) {
         try {
             Server toRemove = this.findServer(id);
             serveDAO.delete(toRemove);
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            System.err.println(e.getMessage());
         }
     }
 
     /**
-     * @return
+     * returns the current page
+     *
+     * @return the current page
      */
     public int currentPage() {
         return this.page;
+    }
+
+    /**
+     * Gets the limit
+     * @return the limit
+     */
+    public long getLimit(){
+        return this.limit;
     }
 
 }

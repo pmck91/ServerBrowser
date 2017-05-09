@@ -20,4 +20,8 @@ public class Servers {
     public ArrayList<Server> getServerList() {
         return this.serverList;
     }
+
+    public void setServerList(ArrayList<Server> serverList) {
+        this.serverList = serverList;
+    }
 }

@@ -5,8 +5,17 @@ import it.elklabs.serverbrowser.models.Server;
 
 import java.util.Scanner;
 
+/**
+ * view for single server inspection
+ */
 public class ServerShow {
 
+    /**
+     * Shows a single server and has links to edit and delete methods
+     *
+     * @param server     the server to show
+     * @param controller the server controller
+     */
     public static void show(Server server, ServerController controller) {
 
         String commandString = "edit: Edit the server, delete: Delete the server, return: Return to list";

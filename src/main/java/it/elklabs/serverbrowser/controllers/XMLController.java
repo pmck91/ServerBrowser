@@ -10,6 +10,12 @@ import java.io.File;
 
 public class XMLController {
 
+    /**
+     * Static xml parsing method to parse a server xml file
+     *
+     * @param filePath file path of the xml file
+     * @return a servers model
+     */
     public static Servers parse(String filePath) {
 
         Servers servers = new Servers();
@@ -21,7 +27,7 @@ public class XMLController {
             servers = (Servers) jaxbUnmarshaller.unmarshal(new File(filePath));
 
         } catch (JAXBException e) {
-            e.printStackTrace();
+            System.err.println("Failed to load xml: " + e.getMessage());
         }
 
         return servers;

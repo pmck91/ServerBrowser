@@ -1,7 +1,7 @@
 package it.elklabs.serverbrowser;
 
 /**
- * Created by petermckinney on 05/05/2017.
+ * ENUM that handles sql results display order
  */
 public enum Order {
     ASSENDING(true),
@@ -9,6 +9,11 @@ public enum Order {
 
     private Boolean value;
 
+    /**
+     * internal constructor
+     *
+     * @param value defined above
+     */
     private Order(Boolean value) {
         this.value = value;
     }

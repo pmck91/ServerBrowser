@@ -8,11 +8,14 @@ import it.elklabs.serverbrowser.models.Servers;
 import java.io.IOException;
 import java.util.Scanner;
 
+/**
+ * This class handles the application and database connection
+ */
 public class ApplicationController {
 
     private ConnectionSource connectionSource;
     private ServerController serverController;
-    private String commandString = "save: save a new server \n" +
+    private final String commandString = "save: save a new server \n" +
             "view <id>: view server with id \n" +
             "edit <id>: edit server with id \n" +
             "delete <id>: delete server with id \n" +
@@ -32,6 +35,9 @@ public class ApplicationController {
 
     }
 
+    /**
+     * This method handles the main program loop and user input
+     */
     public void run() {
 
         Scanner scanner = new Scanner(System.in);
@@ -51,7 +57,7 @@ public class ApplicationController {
                 String[] input = scanner.nextLine().split(" ");
 
                 switch (input[0].toLowerCase()) {
-                    case "saveServer":
+                    case "saveServers":
                         serverController.saveServer();
                         break;
                     case "view":
@@ -90,7 +96,7 @@ public class ApplicationController {
                     case "parse":
                         String filePath = input[1];
                         Servers servers = XMLController.parse(filePath);
-                        serverController.saveServer(servers);
+                        serverController.saveServers(servers);
                         break;
                     case "help":
                     case "h":
@@ -112,17 +118,20 @@ public class ApplicationController {
 
 
             } catch (Exception e) {
-                System.out.println(e.getMessage());
+                System.err.println(e.getMessage());
             }
         }
 
     }
 
+    /**
+     * Closes the database connection
+     */
     private void close(){
         try {
             this.connectionSource.close();
         } catch (IOException e) {
-            System.out.println("Something has gone wrong, couldn't close connection to database: " + e.getMessage());
+            System.err.println("Something has gone wrong, couldn't close connection to database: " + e.getMessage());
         }
     }
 }
