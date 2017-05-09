@@ -13,8 +13,6 @@ import java.util.Scanner;
  */
 public class ApplicationController {
 
-    private ConnectionSource connectionSource;
-    private ServerController serverController;
     private final String commandString = "save: save a new server \n" +
             "view <id>: view server with id \n" +
             "edit <id>: edit server with id \n" +
@@ -28,6 +26,8 @@ public class ApplicationController {
             "parse <file>: parses an xml files \n" +
             "help: shows usage \n" +
             "q: quit";
+    private ConnectionSource connectionSource;
+    private ServerController serverController;
 
     public ApplicationController(ConnectionSource connectionSource) {
         this.connectionSource = connectionSource;
@@ -61,21 +61,21 @@ public class ApplicationController {
                         serverController.saveServer();
                         break;
                     case "view":
-                        if(input.length < 2){
+                        if (input.length < 2) {
                             System.err.println("Wrong number of args");
                             break;
                         }
                         serverController.view(Integer.parseInt(input[1]));
                         break;
                     case "delete":
-                        if(input.length < 2){
+                        if (input.length < 2) {
                             System.err.println("Wrong number of args");
                             break;
                         }
                         serverController.delete(Integer.parseInt(input[1]));
                         break;
                     case "edit":
-                        if(input.length < 2){
+                        if (input.length < 2) {
                             System.err.println("Wrong number of args");
                             break;
                         }
@@ -88,7 +88,7 @@ public class ApplicationController {
                         page = serverController.previousPage();
                         break;
                     case "filter":
-                        if(input.length < 3){
+                        if (input.length < 3) {
                             System.err.println("Wrong number of args");
                             break;
                         }
@@ -97,7 +97,7 @@ public class ApplicationController {
                         serverController.setFilter(col, order);
                         break;
                     case "search":
-                        if(input.length < 3){
+                        if (input.length < 3) {
                             System.err.println("Wrong number of args");
                             break;
                         }
@@ -114,7 +114,7 @@ public class ApplicationController {
                         System.out.println(String.format("There are %s servers", serverController.count()));
                         break;
                     case "parse":
-                        if(input.length < 2){
+                        if (input.length < 2) {
                             System.err.println("Wrong number of args");
                             break;
                         }
@@ -151,7 +151,7 @@ public class ApplicationController {
     /**
      * Closes the database connection
      */
-    private void close(){
+    private void close() {
         try {
             this.connectionSource.close();
         } catch (IOException e) {
