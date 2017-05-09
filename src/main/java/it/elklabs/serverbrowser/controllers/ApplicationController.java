@@ -13,7 +13,7 @@ import java.util.Scanner;
  */
 public class ApplicationController {
 
-    private final String commandString = "save: save a new server \n" +
+    private final String commandString = "add: save a new server \n" +
             "view <id>: view server with id \n" +
             "edit <id>: edit server with id \n" +
             "delete <id>: delete server with id \n" +
@@ -57,7 +57,7 @@ public class ApplicationController {
                 String[] input = scanner.nextLine().split(" ");
 
                 switch (input[0].toLowerCase()) {
-                    case "saveServers":
+                    case "add":
                         serverController.saveServer();
                         break;
                     case "view":

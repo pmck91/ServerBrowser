@@ -10,7 +10,7 @@ public class App {
     public static void main(String[] args) throws Exception {
 
         // this uses h2 by default but change to match your database
-        String databaseUrl = "jdbc:sqlite:servers.db";
+        String databaseUrl = "jdbc:sqlite:../servers.db";
         // create a connection source to our database
         ConnectionSource connectionSource =
                 new JdbcConnectionSource(databaseUrl);
