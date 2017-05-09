@@ -21,6 +21,10 @@ public class Servers {
     public Servers() {
     }
 
+    public Servers(ArrayList<Server> serverList) {
+        this.serverList = serverList;
+    }
+
     /**
      * Get the servers stored in an ArrayList of servers
      *
@@ -46,5 +50,13 @@ public class Servers {
      */
     public void addServer(Server server) {
         this.serverList.add(server);
+    }
+
+    /**
+     * gets the count of the servers in the list
+     * @return the count
+     */
+    public int count(){
+        return this.getServerList().size();
     }
 }

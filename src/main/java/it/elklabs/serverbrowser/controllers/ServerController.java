@@ -41,6 +41,8 @@ public class ServerController {
         this.orderByCol = Server.ID_FIELD;
         try {
             this.serveDAO = DaoManager.createDao(connectionSource, Server.class);
+
+            this.totalCount = this.getCount();
         } catch (SQLException e) {
             System.err.println(e.getMessage());
         }
@@ -240,6 +242,14 @@ public class ServerController {
      */
     public long getLimit() {
         return this.limit;
+    }
+
+    public String getOrderByCol(){
+        return this.orderByCol;
+    }
+
+    public Order getOrderBy(){
+        return this.orderBy;
     }
 
 }
