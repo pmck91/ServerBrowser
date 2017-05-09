@@ -1,14 +1,61 @@
 <servers>
     <server>
-        <name>www.stage4.com</name>
-        <description>stage server</description>
+        <name>www.pmck.info</name>
+        <description>My personal site</description>
     </server>
+
     <server>
-        <name>www.demo1.com</name>
-        <description>demo server</description>
+        <name>www.reddit.com</name>
+        <description>The front page of the internet</description>
     </server>
+
     <server>
-        <name>www.qa1.com</name>
-        <description>qa server</description>
+        <name>www.rte.ie</name>
+        <description>Irish news</description>
+    </server>
+
+    <server>
+        <name>www.waterfordwhispersnews.com/</name>
+        <description>Satire news site</description>
+    </server>
+
+    <server>
+        <name>www.skynews.com</name>
+        <description>International news</description>
+    </server>
+
+    <server>
+        <name>www.player.fm</name>
+        <description>Podcast player</description>
+    </server>
+
+    <server>
+        <name>www.spotify.com</name>
+        <description>Music streaming site</description>
+    </server>
+
+    <server>
+        <name>www.facebook.com</name>
+        <description>Social networking</description>
+    </server>
+
+    <server>
+        <name>mail.google.com</name>
+        <description>Gmail</description>
+    </server>
+
+    <server>
+        <name>www.udemy.com</name>
+        <description>Online courses</description>
+    </server>
+
+    <server>
+        <name>www.youtube.com</name>
+        <description>Video streaming</description>
+    </server>
+
+    <server>
+        <name>www.netflix.com</name>
+        <description>Movie and TV streaming</description>
     </server>
 </servers>
