@@ -163,7 +163,15 @@ public class ApplicationController {
         }
     }
 
-    private void printList(boolean inSearchMode, int page,  String col ,String like){
+    /**
+     * prints the server list for search or normal
+     *
+     * @param inSearchMode is the program currently paging search results?
+     * @param page         current page
+     * @param col          search col (can be null)
+     * @param like         search term (can be null)
+     */
+    private void printList(boolean inSearchMode, int page, String col, String like) {
         if (inSearchMode) {
             serverController.page(page, col, like);
         } else {
