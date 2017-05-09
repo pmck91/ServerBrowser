@@ -7,6 +7,7 @@ import com.j256.ormlite.stmt.PreparedQuery;
 import com.j256.ormlite.stmt.QueryBuilder;
 import com.j256.ormlite.support.ConnectionSource;
 import it.elklabs.serverbrowser.Order;
+import it.elklabs.serverbrowser.Views.ServerCountView;
 import it.elklabs.serverbrowser.Views.ServerInput;
 import it.elklabs.serverbrowser.Views.ServerList;
 import it.elklabs.serverbrowser.Views.ServerShow;
@@ -73,9 +74,9 @@ public class ServerController {
     /**
      * gets the total number of servers in the database
      *
-     * @return the count
+     * @return the getCount
      */
-    public long count() {
+    public long getCount() {
         try {
             QueryBuilder<Server, String> statementBuilder = serveDAO.queryBuilder();
             statementBuilder.setCountOf(true);
@@ -85,6 +86,13 @@ public class ServerController {
             System.err.println(e.getMessage());
             return 0L;
         }
+    }
+
+    /**
+     * The count end point to display count
+     */
+    public void count() {
+        ServerCountView.show(this);
     }
 
     /**
@@ -166,7 +174,7 @@ public class ServerController {
             } else {
                 query = statementBuilder.limit(this.limit).offset(offset).orderBy(this.orderByCol, this.orderBy.getValue()).prepare();
                 statementBuilder.setCountOf(true);
-                this.totalCount = this.count();
+                this.totalCount = this.getCount();
             }
             servers = (ArrayList<Server>) serveDAO.query(query);
         } catch (SQLException e) {
@@ -227,9 +235,10 @@ public class ServerController {
 
     /**
      * Gets the limit
+     *
      * @return the limit
      */
-    public long getLimit(){
+    public long getLimit() {
         return this.limit;
     }
 

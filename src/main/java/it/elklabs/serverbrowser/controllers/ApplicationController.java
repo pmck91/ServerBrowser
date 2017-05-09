@@ -13,19 +13,22 @@ import java.util.Scanner;
  */
 public class ApplicationController {
 
-    private final String commandString = "add: save a new server \n" +
-            "view <id>: view server with id \n" +
-            "edit <id>: edit server with id \n" +
-            "delete <id>: delete server with id \n" +
-            "next: next page \n" +
-            "prev: previous page \n" +
-            "search <col> <value>: search for server by col \n" +
-            "list: Lists all servers \n" +
-            "count: displays total count of servers \n" +
-            "filter <col> <asc/des>: filter list by col in asc or dec order \n" +
-            "parse <file>: parses an xml files \n" +
-            "help: shows usage \n" +
-            "q: quit";
+    private final String commandString =
+                    "-----------------------------------------------\n" +
+                    "add: save a new server \n" +
+                    "view <id>: view server with id \n" +
+                    "edit <id>: edit server with id \n" +
+                    "delete <id>: delete server with id \n" +
+                    "next: next page \n" +
+                    "prev: previous page \n" +
+                    "search <col> <value>: search for server by col \n" +
+                    "list: Lists all servers \n" +
+                    "getCount: displays total getCount of servers \n" +
+                    "filter <col> <asc/des>: filter list by col in asc or dec order \n" +
+                    "parse <file>: parses an xml files \n" +
+                    "help: shows usage \n" +
+                    "q: quit \n" +
+                    "-----------------------------------------------";
     private ConnectionSource connectionSource;
     private ServerController serverController;
 
@@ -120,8 +123,7 @@ public class ApplicationController {
                         printList(inSearch, page, null, null);
                         break;
                     case "count":
-                        System.out.println(String.format("There are %s servers", serverController.count()));
-                        printList(inSearch, page, seachCol, searchLike);
+                        serverController.count();
                         break;
                     case "parse":
                         if (input.length < 2) {
@@ -136,12 +138,16 @@ public class ApplicationController {
                         break;
                     case "help":
                     case "h":
+                    case "?":
                         System.out.println(commandString);
                         break;
                     case "q":
                     case "quit":
                         cont = false;
                         close();
+                        break;
+                    default:
+                        System.out.println("Unrecognised command, see usage with help, h or, ?");
                         break;
                 }
 

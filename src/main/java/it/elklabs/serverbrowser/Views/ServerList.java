@@ -14,7 +14,7 @@ public class ServerList {
      * Shows a supplied list of servers
      *
      * @param servers    the servers model containing multiple server models
-     * @param totalCount the total count of matching server models in the database
+     * @param totalCount the total getCount of matching server models in the database
      * @param controller the server controller
      */
     public static void show(ArrayList<Server> servers, long totalCount, ServerController controller) {
