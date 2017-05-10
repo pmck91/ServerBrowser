@@ -23,8 +23,8 @@ public class ApplicationController {
                     "prev: previous page \n" +
                     "search <col> <value>: search for server by col \n" +
                     "list: Lists all servers \n" +
-                    "getCount: displays total getCount of servers \n" +
-                    "filter <col> <asc/des>: filter list by col in asc or dec order \n" +
+                    "count: displays total count of servers \n" +
+                    "order <col> <asc/des>: order list by col in asc or dec order \n" +
                     "parse <file>: parses an xml files \n" +
                     "help: shows usage \n" +
                     "q: quit \n" +
@@ -96,14 +96,14 @@ public class ApplicationController {
                         page = serverController.previousPage();
                         printList(inSearch, page, seachCol, searchLike);
                         break;
-                    case "filter":
+                    case "order":
                         if (input.length < 3) {
                             System.err.println("Wrong number of args");
                             break;
                         }
                         String col = input[1];
                         Order order = input[2].equals("asc") ? Order.ASSENDING : Order.DECENDING;
-                        serverController.setFilter(col, order);
+                        serverController.setOrder(col, order);
                         printList(inSearch, page, seachCol, searchLike);
                         break;
                     case "search":

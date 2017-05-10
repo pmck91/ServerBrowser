@@ -35,7 +35,7 @@ public class ServerControllerTest {
 
     @Before
     public void setUp() throws SQLException {
-        databaseUrl = "jdbc:sqlite:memory:";
+        databaseUrl = "jdbc:sqlite:memory";
         connectionSource = new JdbcConnectionSource(databaseUrl);
         serverController = new ServerController(connectionSource);
         serveDAO = DaoManager.createDao(connectionSource, Server.class);
@@ -52,7 +52,7 @@ public class ServerControllerTest {
     @Test
     public void getCount() {
         long count = serverController.getCount();
-        Assert.assertEquals(12l, count);
+        Assert.assertEquals(12L, count);
     }
 
     @Test
@@ -114,8 +114,8 @@ public class ServerControllerTest {
     }
 
     @Test
-    public void setFilter() {
-        serverController.setFilter("id", Order.DECENDING);
+    public void setOrder() {
+        serverController.setOrder("id", Order.DECENDING);
         Assert.assertEquals("id", serverController.getOrderByCol());
         Assert.assertEquals(Order.DECENDING, serverController.getOrderBy());
         serverController.page(0, null, null);

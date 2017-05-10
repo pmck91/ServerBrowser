@@ -103,7 +103,7 @@ public class ServerController {
      * @param column The column we want to filter on
      * @param order  The order (ascending, descending)
      */
-    public void setFilter(String column, Order order) {
+    public void setOrder(String column, Order order) {
         this.orderByCol = column;
         this.orderBy = order;
     }
