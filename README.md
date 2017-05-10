@@ -15,15 +15,15 @@ run with `java -jar target/ServerBrowser-jar-with-dependencies.jar`
 
 commands:
  - add: save a new server
- - view <id>: view server with id
- - edit <id>: edit server with id
- - delete <id>: delete server with id
+ - view [id]: view server with id
+ - edit [id]: edit server with id
+ - delete [id]: delete server with id
  - next: next page
  - prev: previous page
- - search <col> <value>: search for server by col
+ - search [col] [value]: search for server by col
  - list: Lists all servers
  - count: displays total count of servers
- - order <col> <asc/des>: order list by col in asc or dec order
- - parse <path>: parses an xml files
+ - order [col] [asc/des]: order list by col in asc or dec order
+ - parse [path]: parses an xml files
  - help: shows usage
  - quit: quit
