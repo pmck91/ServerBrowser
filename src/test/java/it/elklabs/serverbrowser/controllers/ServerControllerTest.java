@@ -27,7 +27,7 @@ public class ServerControllerTest {
 
     private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
     private final ByteArrayOutputStream errContent = new ByteArrayOutputStream();
-    String databaseUrl;
+    private String databaseUrl;
     // create a connection source to our database
     ConnectionSource connectionSource;
     ServerController serverController;
@@ -35,13 +35,11 @@ public class ServerControllerTest {
 
     @Before
     public void setUp() throws SQLException {
-        databaseUrl = "jdbc:sqlite:memory";
+        databaseUrl = "jdbc:sqlite:test.db";
         connectionSource = new JdbcConnectionSource(databaseUrl);
         serverController = new ServerController(connectionSource);
         serveDAO = DaoManager.createDao(connectionSource, Server.class);
-        TableUtils.dropTable(connectionSource, Server.class, true);
         TableUtils.createTable(connectionSource, Server.class);
-
         Servers servers = XMLController.parse("servers.xml");
         serverController.saveServers(servers);
 
@@ -130,7 +128,8 @@ public class ServerControllerTest {
     }
 
     @After
-    public void closeDB() throws IOException {
+    public void closeDB() throws Exception {
+        TableUtils.dropTable(connectionSource, Server.class, true);
         connectionSource.close();
     }
 
