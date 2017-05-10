@@ -24,6 +24,6 @@ commands:
  - list: Lists all servers
  - count: displays total count of servers
  - order <col> <asc/des>: order list by col in asc or dec order
- - parse <path> <file>: parses an xml files
+ - parse <path>: parses an xml files
  - help: shows usage
  - quit: quit
