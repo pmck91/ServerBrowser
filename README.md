@@ -23,7 +23,7 @@ commands:
  - search <col> <value>: search for server by col
  - list: Lists all servers
  - count: displays total count of servers
- - filter <col> <asc/des>: filter list by col in asc or dec order
+ - order <col> <asc/des>: order list by col in asc or dec order
  - parse <path> <file>: parses an xml files
  - help: shows usage
  - quit: quit
